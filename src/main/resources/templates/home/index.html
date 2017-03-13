@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Home page</title>
+</head>
+<body>
+	Hello World!
+	
+	<p>
+		Exam title
+	</p>
+	
+	<p>Exam description</p>
+	
+	<p>Exam duration</p>
+	
+	<p>
+		<table>
+			<tr>
+				<td>User name: </td>
+				<td><input type="text" th:text="${username}"/></td>
+			</tr>
+			
+			<tr>
+				<td>Password: </td>
+				<td><input type="password" /></td>
+			</tr>
+		</table>
+	</p>
+</body>
+</html>
