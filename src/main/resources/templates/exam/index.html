@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+	<title>Home page</title>
+</head>
+<body>
+	<div class="centered-header-div">
+		<div class="desc-contents">
+			Welcome to the exam page.
+			<a th:href="@{/logout}">Logout</a>
+		</div>
+	</div>
+	
+	<div class="centered-header-div">
+		<h1 th:text="'Title : ' + ${exam.title}">
+		</h1>
+		
+		<h2 th:text="'Description : ' + ${exam.description}"></h2>
+		
+		<h3 th:text="'Duration : ' + ${exam.duration} + ' minutes'"></h3>
+		
+		<div class="desc-contents">
+			Select question : 
+			<select name="question">
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+			</select>
+		</div>
+	</div>
+</body>
+</html>

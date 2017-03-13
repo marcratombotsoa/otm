@@ -1,32 +1,48 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8" />
-<title>Home page</title>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+	<title>Home page</title>
 </head>
 <body>
-	Hello World!
+	<div class="centered-header-div">
+		<h1 th:text="'Title : ' + ${exam.title}">
+		</h1>
+		
+		<h2 th:text="'Description : ' + ${exam.description}"></h2>
+		
+		<h3 th:text="'Duration : ' + ${exam.duration} + ' minutes'"></h3>
+		
+		<div class="desc-contents">
+			Please login to start the exam.
+		</div>
+	</div>
 	
-	<p>
-		Exam title
-	</p>
-	
-	<p>Exam description</p>
-	
-	<p>Exam duration</p>
-	
-	<p>
-		<table>
-			<tr>
-				<td>User name: </td>
-				<td><input type="text" th:text="${username}"/></td>
-			</tr>
+	<div class="centered-login-div">
+		<form th:action="@{/home}" method="POST">
+			<table>
+				<tr>
+					<td>User name: </td>
+					<td><input type="text" name="username" th:placeholder="username"/></td>
+				</tr>
+				
+				<tr>
+					<td>Password: </td>
+					<td><input type="password"  name="password" th:placeholder="password"/></td>
+				</tr>
+				
+				<tr>
+					<td colspan="2" style="text-align: center;">
+						<input type="submit" class="submit-button" value="Login"/>
+					</td>
+				</tr>
+			</table>
 			
-			<tr>
-				<td>Password: </td>
-				<td><input type="password" /></td>
-			</tr>
-		</table>
-	</p>
+			<div align="center" th:if="${param.error}">
+				<p style="font-size: 20; color: #FF1C19;">User name or Password invalid, please verify</p>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

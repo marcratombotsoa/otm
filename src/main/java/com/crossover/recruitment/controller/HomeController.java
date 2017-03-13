@@ -5,19 +5,31 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.crossover.recruitment.dao.UserDao;
+import com.crossover.recruitment.dao.ExamDao;
+import com.crossover.recruitment.model.Exam;
 
 @Controller
-@RequestMapping("home")
 public class HomeController {
-
-	@Autowired
-	private UserDao userDao;
 	
-	@RequestMapping(value="rekety", method = RequestMethod.GET)
-	public String home(ModelMap map) {
-		map.put("username", userDao.findByFirstName("Marc").getUserName());
+	@Autowired
+	private ExamDao examDao;
+	
+	@RequestMapping(value="/home", method = RequestMethod.GET)
+	public String home(ModelMap map, @RequestParam(value = "id", required = false) Long examId) {
+		Exam exam = null;
+		if (examId != null) {
+			exam = examDao.findOne(examId);
+		}
+		
+		if (exam == null) {
+			// show error message to tell that the exam is not found
+			map.put("exam", new Exam(null, "N/A", "N/A", 0l));
+		} else {
+			map.put("exam", exam);
+		}
+		
 		return "home/index";
 	}
 }

@@ -7,5 +7,5 @@ import com.crossover.recruitment.model.User;
 public interface UserDao extends CrudRepository<User, Long> {
 
 	User findByFirstName(String firstName);
-	
+	User findByUserName(String userName);
 }
