@@ -1,8 +1,8 @@
-package com.crossover.recruitment.dao;
+package com.co.rc.dao;
 
 import org.springframework.data.repository.CrudRepository;
 
-import com.crossover.recruitment.model.Exam;
+import com.co.rc.model.Exam;
 
 public interface ExamDao extends CrudRepository<Exam, Long> {
 	

@@ -1,12 +1,18 @@
-package com.crossover.recruitment.model;
+package com.co.rc.model;
+
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.google.common.collect.Sets;
 
 @Entity
 @Table(name = "exam")
@@ -25,6 +31,9 @@ public class Exam {
 	
 	@Column(name = "duration")
 	private Long duration;
+	
+	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = Question.class)
+	private Set<Question> questions = Sets.newHashSet();
 	
 	public Exam() {
 		super();
@@ -73,6 +82,14 @@ public class Exam {
 
 	public void setDuration(Long duration) {
 		this.duration = duration;
+	}
+
+	public Set<Question> getQuestions() {
+		return questions;
+	}
+
+	public void setQuestions(Set<Question> questions) {
+		this.questions = questions;
 	}
 
 	@Override

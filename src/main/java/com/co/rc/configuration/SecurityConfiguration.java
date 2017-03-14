@@ -1,4 +1,4 @@
-package com.crossover.recruitment.configuration;
+package com.co.rc.configuration;
 
 import javax.sql.DataSource;
 

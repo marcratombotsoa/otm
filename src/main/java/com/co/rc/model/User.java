@@ -1,4 +1,4 @@
-package com.crossover.recruitment.model;
+package com.co.rc.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
