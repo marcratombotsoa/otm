@@ -44,7 +44,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers("/home").permitAll()
-		.antMatchers("/exam/**").authenticated()
+		.antMatchers("/exam/**", "/assessment/**").authenticated()
 		.and()
 			.logout()
 			.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

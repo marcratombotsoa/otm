@@ -8,12 +8,16 @@
 <body>
 	<div class="centered-header-div">
 		<div class="desc-contents">
-			Welcome to the exam page.
+			Welcome to the exam page <span style="font-weight: bold;" th:text="${username}"></span>
 			<a th:href="@{/logout}">Logout</a>
+		</div>
+		
+		<div class="desc-contents">
+			<a th:href="@{/exam}">Exam list</a>
 		</div>
 	</div>
 	
-	<div class="centered-header-div">
+	<div th:if="${examParamPresent}" class="centered-header-div">
 		<h1 th:text="'Title : ' + ${exam.title}">
 		</h1>
 		
@@ -22,15 +26,26 @@
 		<h3 th:text="'Duration : ' + ${exam.duration} + ' minutes'"></h3>
 		
 		<div class="desc-contents">
-			Select question : 
-			<select name="question">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-			</select>
+			Click on the below button to start the exam. Once you click on this button, the timer will start and you can't go back. 
+			<form th:action="@{/assessment} + '/' + ${exam.id}" method="GET">
+				<input type="submit" value="Start" />
+			</form>
 		</div>
 	</div>
+	
+	<div th:if="${!examParamPresent}" class="centered-header-div">
+		<h1>Click on the exam to start</h1>
+		<table class="exam-list">
+			<tr th:each="exam : ${exams}">
+				<td>
+					<a th:href="'/exam/' + ${exam.id}" th:text="${exam.title}"></a>
+				</td>
+				<td th:text="${exam.description}"></td>
+				<td th:text="${exam.duration} + ' minutes'"></td>
+			</tr>
+		</table>
+	</div>
+	
+	
 </body>
 </html>

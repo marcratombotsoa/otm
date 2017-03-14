@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import java.util.Set;
 
+import org.hibernate.LazyInitializationException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class GlobalMappingTest {
 	@Autowired
 	private ExamDao examDao;
 
-	@Test
+	@Test(expected = LazyInitializationException.class)
 	public void testRetrieveExamWithoutQuestions() {
 		Exam exam = examDao.findById(1l);
 		Set<Question> questions = exam.getQuestions();

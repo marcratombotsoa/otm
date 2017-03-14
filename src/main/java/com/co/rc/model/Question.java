@@ -32,6 +32,9 @@ public class Question {
 	@Column(name = "type")
 	@Enumerated(EnumType.STRING)
 	private QuestionTypeEnum type;
+	
+	@Column(name = "order")
+	private int order;
 
 	public Question(Long id, String title, String description, Exam exam, QuestionTypeEnum type) {
 		super();
@@ -84,6 +87,14 @@ public class Question {
 
 	public void setType(QuestionTypeEnum type) {
 		this.type = type;
+	}
+
+	public int getOrder() {
+		return order;
+	}
+
+	public void setOrder(int order) {
+		this.order = order;
 	}
 
 	@Override

@@ -32,7 +32,7 @@ public class Exam {
 	@Column(name = "duration")
 	private Long duration;
 	
-	@OneToMany(fetch = FetchType.EAGER, orphanRemoval = true, targetEntity = Question.class)
+	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "exam", targetEntity = Question.class)
 	private Set<Question> questions = Sets.newHashSet();
 	
 	public Exam() {

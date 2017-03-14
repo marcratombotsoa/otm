@@ -16,6 +16,11 @@ table {
 	margin-left: 75px;
 }
 
+table .exam-list {
+	width: 500px;
+	margin-left: 10px;
+}
+
 h2 {
 	font-family: cursive;
 	font-size: 16px;
