@@ -1,5 +1,7 @@
 package com.co.rc.model;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.SortedSet;
 
 import javax.persistence.Column;
@@ -30,8 +32,14 @@ public class Exam {
 	@Column(name = "description")
 	private String description;
 	
-	@Column(name = "duration")
+	@Column(name = "duration", nullable = false)
 	private Long duration;
+	
+	@Column(name = "pass_score", nullable = false)
+	private Long passScore;
+	
+	@Column(name = "maximum_score", nullable = false)
+	private Long maximumScore;
 	
 	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "exam", targetEntity = Question.class)
 	@OrderBy("order ASC")
@@ -94,6 +102,22 @@ public class Exam {
 		this.questions = questions;
 	}
 
+	public Long getPassScore() {
+		return passScore;
+	}
+
+	public void setPassScore(Long passScore) {
+		this.passScore = passScore;
+	}
+
+	public Long getMaximumScore() {
+		return maximumScore;
+	}
+
+	public void setMaximumScore(Long maximumScore) {
+		this.maximumScore = maximumScore;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -123,5 +147,10 @@ public class Exam {
 		} else if (!title.equals(other.title))
 			return false;
 		return true;
+	}
+
+	public int getMinimumPassScorePercent() {
+		return BigDecimal.TEN.multiply(BigDecimal.TEN).multiply(new BigDecimal(passScore))
+				.divide(new BigDecimal(maximumScore), 0, RoundingMode.HALF_UP).intValue();
 	}
 }

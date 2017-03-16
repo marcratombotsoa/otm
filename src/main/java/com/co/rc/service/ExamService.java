@@ -10,9 +10,11 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.co.rc.dao.AnswerDao;
+import com.co.rc.dao.UserExamDao;
 import com.co.rc.model.Exam;
 import com.co.rc.model.Question;
 import com.co.rc.model.User;
+import com.co.rc.model.UserExam;
 import com.co.rc.model.dto.QuestionDTO;
 import com.google.common.base.Predicate;
 import com.google.common.base.Splitter;
@@ -25,6 +27,9 @@ public class ExamService {
 	
 	@Autowired
 	private AnswerDao answerDao;
+	
+	@Autowired
+	private UserExamDao userExamDao;
 	
 	public Collection<QuestionDTO> loadSummary(Exam exam, User user) {
 
@@ -40,7 +45,7 @@ public class ExamService {
 		return result;
 	}
 	
-	Map<Long, Long> mergeResults(List<Object[]> answers) {
+	private Map<Long, Long> mergeResults(List<Object[]> answers) {
 		Map<Long, Long> result = Maps.newHashMap();
 		
 		for (Object[] entry : answers) {
@@ -70,6 +75,18 @@ public class ExamService {
 				continue;
 			}
 		}
+	}
+	
+	public UserExam findByUserAndExam(User user, Exam exam) {
+		UserExam ue = userExamDao.findByUserAndExam(user, exam);
+		
+		if (ue == null) {
+			ue = new UserExam();
+			ue.setUser(user);
+			ue.setExam(exam);
+		}
+		
+		return ue;
 	}
 
 	public int findAnsweredQuestions(Collection<QuestionDTO> questions) {

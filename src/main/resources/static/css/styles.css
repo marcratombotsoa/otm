@@ -126,3 +126,28 @@ h3 {
 .right-aligned-button {
 	text-align: right;
 }
+
+.review-link {
+	border: 1px solid #cecece;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.float-left {
+	float: left;
+}
+
+.timer {
+	float: right;
+	font-family: monospace;
+    font-size: 16px;
+    color: #808080;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+.no-top-margin {
+	margin-bottom: 25px;
+    margin-top: 0px;
+    padding-top: 0px;
+}

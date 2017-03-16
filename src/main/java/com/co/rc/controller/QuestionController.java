@@ -1,6 +1,7 @@
 package com.co.rc.controller;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,11 @@ import com.co.rc.dao.AnswerDao;
 import com.co.rc.dao.CustomExamDao;
 import com.co.rc.dao.CustomQuestionDao;
 import com.co.rc.dao.UserDao;
+import com.co.rc.dao.UserExamDao;
 import com.co.rc.model.Exam;
 import com.co.rc.model.Question;
 import com.co.rc.model.User;
+import com.co.rc.model.UserExam;
 import com.co.rc.model.dto.QuestionDTO;
 import com.co.rc.service.ExamService;
 import com.google.common.base.Joiner;
@@ -38,6 +41,9 @@ public class QuestionController {
 	
 	@Autowired
 	private UserDao userDao;
+	
+	@Autowired
+	private UserExamDao userExamDao;
 	
 	@Autowired
 	private ExamService examService;
@@ -95,6 +101,13 @@ public class QuestionController {
 		initUser(map);
 		exam = cExamDao.findByIdAndFetchQuestions(examId);
 		answerDao.resetUserAnswers(exam.getId(), user.getId());
+		
+		UserExam ue = examService.findByUserAndExam(user, exam);
+		ue.setStartDate(new Date());
+		ue.setEndDate(null);
+		ue.setScore(null);
+		userExamDao.save(ue);
+
 		map.put("exam", exam);
 		
 		question = cQuestionDao.findByIdAndFetchAnswers(exam.getQuestions().first().getId());

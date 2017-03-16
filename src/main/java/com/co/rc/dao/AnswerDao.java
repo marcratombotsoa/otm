@@ -15,6 +15,9 @@ public interface AnswerDao extends CrudRepository<Answer, Long> {
 	@Query("select answer.id from User user left join user.answers answer where user = ?1 and answer.question = ?2")
 	List<Long> findAllByUserAndQuestion(User user, Question question);
 	
+	@Query("select answer.id from Answer answer where answer.question = ?1 and answer.correct is true")
+	List<Long> findCorrectAnswers(Question question);
+	
 	@Modifying
 	@Transactional
 	@Query(value = "insert into user_answer values(?1, ?2)", nativeQuery = true)

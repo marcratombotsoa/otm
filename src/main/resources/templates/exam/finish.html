@@ -8,10 +8,11 @@
 </head>
 <body>
 		<div class="centered-header-div">
-			<h2 th:text="${exam.title} + ' (' + ${username} + ') - Summary'" class="float-left no-top-margin"></h2>
-			<div id="timer" class="timer">00:45:25</div>
+			<h2 th:text="'Congratulations ' + ${username} + ', you have completed the test ' + ${exam.title}"></h2>
 		</div>
-		<div style="clear:both;"></div>
+		
+		<div class="centered-header-div" th:text="'Your score : ' + ${scorePercent} + ' / 100, Status : ' + ${status}"></div>
+		
 		<div class="answers-div">
 			<div class="question-title" th:text="'Number of answered questions : ' + ${rate}"></div>
 			
@@ -21,16 +22,13 @@
 						<td th:text="${question.order}"></td>
 						<td th:text="${question.title}"></td>
 						<td><img th:src="@{/images/answered-} + ${question.answered} + '.png'" class="status-icon"/></td>
-						<td>
-							<a th:href="@{/assessment/question} + '/' + ${question.questionId}" class="review-link">Review</a>
-						</td>
 					</tr>
 				</table>
 			</div>
 		</div>
 		
 		<div class="centered-header-div right-aligned-button">
-			<a th:href="@{/assessment/terminate/} + ${exam.id}" class="review-link">Finish</a>
+			<a th:href="@{/logout}">Logout</a>
 		</div>
 </body>
 </html>
