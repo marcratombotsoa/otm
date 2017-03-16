@@ -7,5 +7,4 @@ import com.co.rc.model.Exam;
 public interface ExamDao extends CrudRepository<Exam, Long> {
 	
 	Exam findById(Long id);
-
 }

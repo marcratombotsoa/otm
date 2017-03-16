@@ -34,15 +34,6 @@ public class ExamController {
 		return "exam/index";
 	}
 	
-	@RequestMapping(value="/assessment/{id}", method = RequestMethod.GET)
-	public String loadQuestions(ModelMap map, @PathVariable(value = "id", required = true) Long examId) {
-		initUser(map);
-		Exam exam = examDao.findOne(examId);
-		map.put("exam", exam);
-		
-		return "exam/questions";
-	}
-	
 	private void initUser(ModelMap map) {
 		map.put("username", SecurityContextHolder.getContext().getAuthentication().getName());
 	}

@@ -1,6 +1,6 @@
 package com.co.rc.model;
 
-import java.util.Set;
+import java.util.SortedSet;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -33,7 +34,8 @@ public class Exam {
 	private Long duration;
 	
 	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "exam", targetEntity = Question.class)
-	private Set<Question> questions = Sets.newHashSet();
+	@OrderBy("order ASC")
+	private SortedSet<Question> questions = Sets.newTreeSet();
 	
 	public Exam() {
 		super();
@@ -84,11 +86,11 @@ public class Exam {
 		this.duration = duration;
 	}
 
-	public Set<Question> getQuestions() {
+	public SortedSet<Question> getQuestions() {
 		return questions;
 	}
 
-	public void setQuestions(Set<Question> questions) {
+	public void setQuestions(SortedSet<Question> questions) {
 		this.questions = questions;
 	}
 

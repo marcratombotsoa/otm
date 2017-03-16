@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="ISO-8859-1" />
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+	<title th:text="${exam.title}"></title>
+	<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+</head>
+<body>
+	<form th:action="@{/assessment/terminate}" method="POST">
+		<div class="centered-header-div">
+			<h2 th:text="${exam.title} + ' (' + ${username} + ') - Summary'"></h2>
+		</div>
+		
+		<div class="answers-div">
+			<div class="question-title" th:text="'Number of answered questions : ' + ${rate}"></div>
+			
+			<div class="answer-item">
+				<table class="summary">
+					<tr th:each="question : ${questions}">
+						<td th:text="${question.order}"></td>
+						<td th:text="${question.title}"></td>
+						<td><img th:src="@{/images/answered-} + ${question.answered} + '.png'" class="status-icon"/></td>
+						<td>
+							<a th:href="@{/assessment/question} + '/' + ${question.questionId}">Review</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		
+		<div class="centered-header-div right-aligned-button">
+			<button type="submit">Finish</button>
+		</div>
+	</form>
+</body>
+</html>

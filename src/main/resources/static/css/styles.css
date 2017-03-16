@@ -11,14 +11,56 @@ h1 {
 	color: silver;
 }
 
+a {
+	outline: none;
+	text-decoration: none;
+	font-family: monospace;
+	color: #505050;
+}
+
+a:hover {
+	outline: none;
+	text-decoration: none;
+	font-family:monospace;
+	color: #505090;
+}
+
+a:focus {
+	outline: none;
+	text-decoration: none;
+	font-family:monospace;
+	color: #505090;
+}
+
 table {
 	width: 450px;
-	margin-left: 75px;
+}
+
+.status-icon {
+	width: 32px;
 }
 
 table .exam-list {
 	width: 500px;
 	margin-left: 10px;
+}
+
+table .summary {
+	width: 500px;
+}
+
+.summary td {
+	font-family: monospace;
+	color: #505050;
+	padding: 5px;
+}
+
+.answered-true {
+	background-color: #66cc66;	
+}
+
+.answered-false {
+	background-color: #cc6666;	
 }
 
 h2 {
@@ -56,4 +98,31 @@ h3 {
 
 .submit-button {
 	margin-top: 10px;
+}
+
+.answers-div {
+	width: 500px;
+    padding: 20px;
+    margin: 0 auto;
+    border: 1px solid lightblue;
+    border-radius: 5px;
+}
+
+.question-title {
+	font-size: 18px;
+    font-family: monospace;
+    font-weight: bold;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.question-description {
+	font-family: verdana;
+    font-size: 14px;
+    color: #998;
+    margin-bottom: 10px;
+}
+
+.right-aligned-button {
+	text-align: right;
 }

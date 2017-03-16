@@ -1,34 +1,39 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1" />
-<link rel="stylesheet" th:href="@{/css/styles.css}" />
-<title th:text="${exam.title}"></title>
+	<meta charset="ISO-8859-1" />
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+	<title th:text="${exam.title}"></title>
+	<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
 </head>
 <body>
-	<div class="centered-header-div">
-		<div class="desc-contents">
-			Welcome to the exam page <span style="font-weight: bold;" th:text="${username}"></span>
-			<a th:href="@{/exam/finish/logout}">Logout</a>
+	<form th:action="@{/assessment/question}" method="POST">
+		<div class="centered-header-div">
+			<h2 th:text="${exam.title} + ' (' + ${username} + ')'"></h2>
+			<div class="desc-contents">
+				Select a question: 
+				<select name="questionToLoad" onchange="this.form.submit();">
+					<option th:each="q : ${exam.questions}" th:value="${q.id}"  th:text="${q.order}" th:selected="${q.id == question.id}"></option>
+				</select>
+			</div>
 		</div>
 		
-		<div class="desc-contents">
-			<a th:href="@{/exam/finish/home}">Exam list</a>
+		<div class="answers-div">
+			<div class="question-title" th:text="${question.title}"></div>
+			<div class="question-description" th:text="${question.description}"></div>
+			
+			<div class="answer-item" th:each="answer : ${question.answers}" th:if="${question.type.name() == 'SINGLE_CHOICE'}">
+				<input type="radio" th:value="${answer.id}" th:name="${question.id}" th:checked="${selectedAnswers.contains(answer.id)}"/><label th:text="${answer.value}"></label>
+			</div>
+			
+			<div class="answer-item" th:each="answer : ${question.answers}" th:if="${question.type.name() == 'MULTIPLE_CHOICE'}">
+				<input type="checkbox" th:value="${answer.id}" th:name="${question.id}" th:checked="${selectedAnswers.contains(answer.id)}"/><label th:text="${answer.value}"></label>
+			</div>
 		</div>
-	</div>
-	
-	<div class="centered-header-div">
-		<h2 th:text="${exam.title}"></h2>
-		<div class="desc-contents">
-			Select a question: 
-			<select name="question">
-				<option value="1">1</option>
-				<option value="2">2</option>
-				<option value="3">3</option>
-				<option value="4">4</option>
-				<option value="5">5</option>
-			</select>
+		
+		<div class="centered-header-div right-aligned-button">
+			<button type="submit" name="validate">Finish</button>
 		</div>
-	</div>
+	</form>
 </body>
 </html>

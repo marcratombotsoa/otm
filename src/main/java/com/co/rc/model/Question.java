@@ -1,19 +1,26 @@
 package com.co.rc.model;
 
+import java.util.SortedSet;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+
+import com.google.common.collect.Sets;
 
 @Entity
 @Table(name = "question")
-public class Question {
+public class Question implements Comparable<Question> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,17 +40,12 @@ public class Question {
 	@Enumerated(EnumType.STRING)
 	private QuestionTypeEnum type;
 	
-	@Column(name = "order")
-	private int order;
-
-	public Question(Long id, String title, String description, Exam exam, QuestionTypeEnum type) {
-		super();
-		this.id = id;
-		this.title = title;
-		this.description = description;
-		this.exam = exam;
-		this.type = type;
-	}
+	@Column(name = "order", nullable = false)
+	private Integer order;
+	
+	@OneToMany(fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "question", targetEntity = Answer.class)
+	@OrderBy("order ASC")
+	private SortedSet<Answer> answers = Sets.newTreeSet();
 
 	public Question() {
 		super();
@@ -89,12 +91,20 @@ public class Question {
 		this.type = type;
 	}
 
-	public int getOrder() {
+	public Integer getOrder() {
 		return order;
 	}
 
-	public void setOrder(int order) {
+	public void setOrder(Integer order) {
 		this.order = order;
+	}
+
+	public SortedSet<Answer> getAnswers() {
+		return answers;
+	}
+
+	public void setAnswers(SortedSet<Answer> answers) {
+		this.answers = answers;
 	}
 
 	@Override
@@ -132,5 +142,10 @@ public class Question {
 	public String toString() {
 		return "Question [id=" + id + ", title=" + title + ", description=" + description + ", exam=" + exam + ", type="
 				+ type + "]";
+	}
+
+	@Override
+	public int compareTo(Question o) {
+		return order.compareTo(o.order);
 	}
 }
