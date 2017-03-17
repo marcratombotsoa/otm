@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50716
 File Encoding         : 65001
 
-Date: 2017-03-16 20:22:24
+Date: 2017-03-17 11:50:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -66,15 +66,15 @@ CREATE TABLE `exam` (
   `title` varchar(255) NOT NULL,
   `description` varchar(1000) DEFAULT NULL,
   `duration` bigint(20) DEFAULT NULL,
-  `pass_score` bigint(20) NOT NULL DEFAULT '60',
-  `maximum_score` bigint(20) NOT NULL DEFAULT '100',
+  `pass_score` int(20) NOT NULL DEFAULT '60',
+  `maximum_score` int(20) NOT NULL DEFAULT '100',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of exam
 -- ----------------------------
-INSERT INTO `exam` VALUES ('1', 'Java test skills', 'This test is designed to assess your java skills. It will test your ability to code with Java language, your ability to understand how collections work, how maps are used. You will also see some algorithms solving.', '60', '60', '100');
+INSERT INTO `exam` VALUES ('1', 'Java test skills', 'This test is designed to assess your java skills. It will test your ability to code with Java language, your ability to understand how collections work, how maps are used. You will also see some algorithms solving.', '1', '60', '100');
 INSERT INTO `exam` VALUES ('2', 'Madagascar General knowledges', 'The objective of this test is to assess your knowledges about Madagascar, its economy, history, geography...', '10', '60', '100');
 
 -- ----------------------------
@@ -155,7 +155,31 @@ CREATE TABLE `user_answer` (
 -- ----------------------------
 -- Records of user_answer
 -- ----------------------------
-INSERT INTO `user_answer` VALUES ('1', '3');
+INSERT INTO `user_answer` VALUES ('1', '1');
 INSERT INTO `user_answer` VALUES ('1', '5');
-INSERT INTO `user_answer` VALUES ('1', '14');
-INSERT INTO `user_answer` VALUES ('1', '15');
+INSERT INTO `user_answer` VALUES ('1', '11');
+INSERT INTO `user_answer` VALUES ('1', '18');
+
+-- ----------------------------
+-- Table structure for `user_exam`
+-- ----------------------------
+DROP TABLE IF EXISTS `user_exam`;
+CREATE TABLE `user_exam` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL,
+  `exam_id` bigint(20) NOT NULL,
+  `start_date` datetime DEFAULT NULL,
+  `end_date` datetime DEFAULT NULL,
+  `score` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `FKl44lsl55re2s7jhjlh527y85l` (`exam_id`),
+  KEY `FK30xxyjqs5y3dnq0qtb2o159ds` (`user_id`),
+  CONSTRAINT `FK30xxyjqs5y3dnq0qtb2o159ds` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `FKl44lsl55re2s7jhjlh527y85l` FOREIGN KEY (`exam_id`) REFERENCES `exam` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of user_exam
+-- ----------------------------
+INSERT INTO `user_exam` VALUES ('1', '1', '1', '2017-03-17 10:27:12', '2017-03-17 10:28:12', '0');
+INSERT INTO `user_exam` VALUES ('2', '1', '2', '2017-03-17 03:11:07', null, null);
