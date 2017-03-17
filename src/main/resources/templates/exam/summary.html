@@ -5,11 +5,13 @@
 	<link rel="stylesheet" th:href="@{/css/styles.css}" />
 	<title th:text="${exam.title}"></title>
 	<script th:src="@{/js/jquery-3.1.1.min.js}"></script>
+	<script th:src="@{/js/otm-timer.js}"></script>
 </head>
 <body>
 		<div class="centered-header-div">
 			<h2 th:text="${exam.title} + ' (' + ${username} + ') - Summary'" class="float-left no-top-margin"></h2>
-			<div id="timer" class="timer">00:45:25</div>
+			<div id="timer" class="timer"></div>
+			<div id="examId" style="display:none;" th:text="${exam.id}"></div>
 		</div>
 		<div style="clear:both;"></div>
 		<div class="answers-div">

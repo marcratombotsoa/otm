@@ -1,6 +1,7 @@
 package com.co.rc.service;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -10,6 +11,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import com.co.rc.dao.AnswerDao;
+import com.co.rc.dao.ExamDao;
 import com.co.rc.dao.UserExamDao;
 import com.co.rc.model.Exam;
 import com.co.rc.model.Question;
@@ -30,6 +32,9 @@ public class ExamService {
 	
 	@Autowired
 	private UserExamDao userExamDao;
+	
+	@Autowired
+	private ExamDao examDao;
 	
 	public Collection<QuestionDTO> loadSummary(Exam exam, User user) {
 
@@ -97,5 +102,17 @@ public class ExamService {
 				return input.isAnswered();
 			}
 		}).size();
+	}
+	
+	public Long computeRemainingTimeInMilliseconds(Long userId, Long examId) {
+		UserExam ue = userExamDao.findByUserIdAndExamId(userId, examId);
+		Exam exam = examDao.findOne(examId);
+		Long duration = exam.getDuration() * 60 * 1000;
+		Long now = new Date().getTime();
+		Long start = ue.getStartDate().getTime();
+		
+		Long remaining = duration - (now - start);
+		
+		return remaining;
 	}
 }
